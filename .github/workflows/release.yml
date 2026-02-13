@@ -3,7 +3,8 @@ name: Release
 on:
   push:
     tags:
-      - 'v*' # 当推送以 v 开头的 tag 时触发，例如 v0.1.0
+      - 'v*'
+  workflow_dispatch:
 
 jobs:
   release:
@@ -31,18 +32,31 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build
 
+      - name: Prepare Release Assets
+        run: |
+          mkdir -p release-assets
+          # 收集 Fabric 产物
+          cp fabric/build/libs/*[!d][!e][!v].jar release-assets/ || true
+          # 收集 NeoForge 产物
+          cp neoforge/build/libs/*[!d][!e][!v].jar release-assets/ || true
+          # 移除 sources 和 shadow-dev 产物（如果上面的匹配不够精确）
+          rm -f release-assets/*-sources.jar
+          rm -f release-assets/*-dev-shadow.jar
+          rm -f release-assets/*-dev.jar
+          ls -R release-assets/
+
       - name: Get Version
         id: get_version
         run: |
           VERSION=$(grep "mod_version=" gradle.properties | cut -d'=' -f2)
-          echo "MOD_VERSION=$VERSION" >> $GITHUB_ENV
           echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Update Release Assets
         uses: softprops/action-gh-release@v2
         with:
-          files: |
-            build/libs/*.jar
+          files: release-assets/*.jar
           tag_name: ${{ github.ref_name }}
+          name: Release ${{ steps.get_version.outputs.VERSION }}
+          generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
