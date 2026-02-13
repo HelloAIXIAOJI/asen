@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "id": "asen",
+  "version": "${version}",
+  "name": "asen",
+  "description": "mgmc-example",
+  "authors": [
+    "aixiaoji"
+  ],
+  "contact": {
+    "homepage": "aixiaoji.nb6.ltd"
+  },
+  "license": "MIT",
+  "icon": "assets/asen/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "ltd.nb6.asen.fabric.AsenFabric"
+    ],
+    "client": [
+      "ltd.nb6.asen.fabric.client.AsenFabricClient"
+    ]
+  },
+  "mixins": [
+    "asen.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.18.4",
+    "minecraft": "~1.21.11",
+    "java": ">=21",
+    "architectury": ">=19.0.1",
+    "fabric-api": "*"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}
