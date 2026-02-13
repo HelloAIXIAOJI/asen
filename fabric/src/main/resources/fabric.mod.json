@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "id": "asen",
   "version": "${version}",
-  "name": "asen",
-  "description": "mgmc-example",
+  "name": "Always Show English",
+  "description": "Automatically appends English translations after the current language",
   "authors": [
     "aixiaoji"
   ],

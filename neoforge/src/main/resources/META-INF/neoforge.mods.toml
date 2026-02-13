@@ -6,10 +6,10 @@ license = "MIT"
 [[mods]]
 modId = "asen"
 version = "${version}"
-displayName = "asen"
+displayName = "Always Show English"
 authors = "aixiaoji"
 description = '''
-mgmc-example
+Automatically appends English translations after the current language
 '''
 #logoFile = ""
 
